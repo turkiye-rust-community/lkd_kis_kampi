@@ -294,12 +294,107 @@ fn main() {
     for year in 1985..=1995 {
         let student = get_student("Öğrenci -".to_string(), "Rust".to_string(), year);
         let student_info = format_with_struct(student);
-        println!("{}",student_info);
+        println!("{}", student_info);
     }
     //array2 içerisindeki öğrencilerin yaşlarının ortalamasını
     //döndüren fonksiyon yazılıp çağrılması.
 
     //println!("{}",format_with_struct(array2[0].to_owned()))
+
+    #[derive(Debug)]
+    enum GenderCategory {
+        Male,
+        Female,
+    }
+    let male = GenderCategory::Male;
+    let female = GenderCategory::Female;
+
+    println!("{:?}", male);
+    println!("{:?}", female);
+
+    let is_even_var = is_even(5);
+    println!("{:?}", is_even_var);
+
+    print_size(CarType::SUV);
+    print_size(CarType::Hatch);
+    print_size(CarType::Sedan);
+
+    match is_even(6) {
+        Some(data) => {
+            if data == true {
+                println!("Even no");
+            }
+        }
+        None => {
+            println!("not even");
+        }
+    }
+
+    let p1: PersonCategory = PersonCategory::Name(String::from("ÖYK"));
+    let p2 = PersonCategory::Count(18);
+
+    println!("{:?}", p1);
+    println!("{:?}", p2);
+let ders1= Camp::Ders("Rust101".to_string(), 14);
+let ders2 = Camp::Ders("Rust ile Blockchain".to_string(), 16);
+let hoca1 = Camp::Hoca("Veli UYSAL".to_string());
+let hoca2 = Camp::Hoca("Aydın YAKAR".to_string());
+
+print_camp_enum(ders1);
+print_camp_enum(ders2);
+print_camp_enum(hoca1);
+print_camp_enum(hoca2);
+
+}
+
+fn print_camp_enum(camp: Camp){
+    match camp {
+        Camp::Ders(name,count ) => {
+            println!("Ders adı: {}, Mevcut: {}",name, count);
+        },
+        Camp::Hoca(name) => {
+            println!(" Hoca: {}",name);
+        }
+    }
+}
+
+#[derive(Debug)]
+enum PersonCategory {
+    Name(String),
+    Count(i32),
+}
+
+enum Camp {
+    Ders(String, u32),
+    Hoca(String)
+}
+
+enum CarType {
+    Hatch,
+    Sedan,
+    SUV,
+}
+
+fn print_size(car: CarType) {
+    match car {
+        CarType::Hatch => {
+            println!("Small sized car");
+        }
+        CarType::Sedan => {
+            println!("medium sized car");
+        }
+        CarType::SUV => {
+            println!("Large sized Sports Utility car");
+        }
+    }
+}
+
+fn is_even(no: i32) -> Option<bool> {
+    if no % 2 == 0 {
+        Some(false)
+    } else {
+        None
+    }
 }
 
 pub fn fn_hello() {
