@@ -282,16 +282,24 @@ fn main() {
     };
 
     let array = [student1.clone(), student2, student3];
-    let array2=array.clone();
+    let array2 = array.clone();
     for student in array {
-        println!("{}",format_with_struct(student));
+        println!("{}", format_with_struct(student));
     }
 
-//array2 içerisindeki öğrencilerin yaşlarının ortalamasını
-//döndüren fonksiyon yazılıp çağrılması.
+    let student_var = get_student("ÖYK Kamp".to_string(), "Rust".to_string(), 1986);
+    let student_info = format_with_struct(student_var);
+    println!("{}", student_info);
+
+    for year in 1985..=1995 {
+        let student = get_student("Öğrenci -".to_string(), "Rust".to_string(), year);
+        let student_info = format_with_struct(student);
+        println!("{}",student_info);
+    }
+    //array2 içerisindeki öğrencilerin yaşlarının ortalamasını
+    //döndüren fonksiyon yazılıp çağrılması.
 
     //println!("{}",format_with_struct(array2[0].to_owned()))
-
 }
 
 pub fn fn_hello() {
@@ -325,6 +333,13 @@ fn format_with_struct(student: Student) -> String {
     )
 }
 
-fn array_fn(array : [Student;3]) -> i32 {
+//fn array_fn(array: [Student; 3]) -> i32 {}
 
+fn get_student(name: String, department: String, birth_year: u32) -> Student {
+    let student = Student {
+        name: name,
+        department: department,
+        age: 2024 - birth_year,
+    };
+    student
 }
