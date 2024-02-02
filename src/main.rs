@@ -335,25 +335,35 @@ fn main() {
 
     println!("{:?}", p1);
     println!("{:?}", p2);
-let ders1= Camp::Ders("Rust101".to_string(), 14);
-let ders2 = Camp::Ders("Rust ile Blockchain".to_string(), 16);
-let hoca1 = Camp::Hoca("Veli UYSAL".to_string());
-let hoca2 = Camp::Hoca("Aydın YAKAR".to_string());
+    let ders1 = Camp::Ders("Rust101".to_string(), 14);
+    let ders2 = Camp::Ders("Rust ile Blockchain".to_string(), 16);
+    let hoca1 = Camp::Hoca("Veli UYSAL".to_string());
+    let hoca2 = Camp::Hoca("Aydın YAKAR".to_string());
 
-print_camp_enum(ders1);
-print_camp_enum(ders2);
-print_camp_enum(hoca1);
-print_camp_enum(hoca2);
+    let mut vec_arr: Vec<Camp> = vec![hoca1];
+    vec_arr.push(hoca2);
+    vec_arr.push(ders1);
+    vec_arr.push(ders2);
+    vec_arr.push(Camp::Ders("Rust 102".to_string(), 20));
+    println!("{}", vec_arr.capacity());
+    println!("{}", vec_arr.len());
 
+    add_and_print_camp(vec_arr, Camp::Hoca("Muhammet Kara".to_string()));
 }
 
-fn print_camp_enum(camp: Camp){
+fn add_and_print_camp(mut vec: Vec<Camp>, camp: Camp) -> Vec<Camp> {
+    println!("{:?}", camp);
+    vec.push(camp);
+    vec
+}
+
+fn print_camp_enum(camp: Camp) {
     match camp {
-        Camp::Ders(name,count ) => {
-            println!("Ders adı: {}, Mevcut: {}",name, count);
-        },
+        Camp::Ders(name, count) => {
+            println!("Ders adı: {}, Mevcut: {}", name, count);
+        }
         Camp::Hoca(name) => {
-            println!(" Hoca: {}",name);
+            println!(" Hoca: {}", name);
         }
     }
 }
@@ -364,9 +374,10 @@ enum PersonCategory {
     Count(i32),
 }
 
+#[derive(Debug)]
 enum Camp {
     Ders(String, u32),
-    Hoca(String)
+    Hoca(String),
 }
 
 enum CarType {
