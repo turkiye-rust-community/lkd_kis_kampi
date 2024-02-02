@@ -1,3 +1,6 @@
+use std::mem;
+use std::rc::Rc;
+
 #[derive(Clone)]
 struct Student {
     name: String,
@@ -349,6 +352,46 @@ fn main() {
     println!("{}", vec_arr.len());
 
     add_and_print_camp(vec_arr, Camp::Hoca("Muhammet Kara".to_string()));
+
+    let box_var = Box::new(Camp::Ders("Rust 102".to_string(), 10));
+    println!("{:?}", box_var);
+    println!("{}", mem::size_of_val(&box_var));
+    //println!("{}", mem::size_of_val(vec_arr));
+    let rc_var = Rc::new(Camp::Hoca("Emin Fedar".to_string()));
+    println!("{}", mem::size_of_val(&rc_var));
+
+    let mut s = String::from("Rust 101");
+
+    s = print_something(&mut s);
+    s.push_str("YK");
+
+    println!("diğeri: {}", s);
+
+    let mut int: u32 = 32;
+    int = print_else(&mut int);
+    println!("{}", int);
+    let ornek1: LifetimeEnum<i32, String> = LifetimeEnum::Dogum(1987);
+    let ornek2: LifetimeEnum<u64, &str> = LifetimeEnum::Yasiyor("Ankara");
+    let ornek3:LifetimeEnum<Vec<i32>, String>  = LifetimeEnum::Dogum(vec![1990,1995]);
+}
+
+enum LifetimeEnum<T, V> {
+    Yasiyor(V),
+    Dogum(T),
+}
+
+fn print_something(x: &mut String) -> String {
+    //let t = x;
+    println!("{}", x);
+    //t.push('Ö');
+    //t.to_string()
+    x.to_string()
+}
+
+fn print_else(x: &mut u32) -> u32 {
+    println!("{}", x);
+    *x = *x + 10;
+    *x
 }
 
 fn add_and_print_camp(mut vec: Vec<Camp>, camp: Camp) -> Vec<Camp> {
